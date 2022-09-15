@@ -22,8 +22,87 @@
   const height = canvas.height;
   const width = canvas.width;
 
-  context.fillStyle = '#fff';
-  context.fillRect(0, 0, width, height);
+  class Node {
+    constructor(x, y, color) {
+      this.color = color;
+      this.x = x;
+      this.y = y;
+    }
+
+    draw(context) {
+      context.save();
+      context.strokeStyle = this.color;
+      context.translate(this.x, this.y);
+      context.beginPath();
+      context.arc(0, 0, 10, 0, Math.PI * 2);
+      context.closePath();
+      context.stroke();
+      context.restore();
+    }
+
+    update() {
+      this.x += 0.25;
+      this.y += 0.25;
+    }
+  }
+
+  context.fillStyle = 'red';
+  // context.fillRect(100, 100, 200, 200);
+
+  const nodes = [];
+  for (let i = 0; i < 50; i++) {
+    const color = i % 2
+      ? 'rgba(200, 50, 50, 0.25)'
+      : 'rgba(50, 50, 200, 0.25)';
+    const x = randomRange(0, width);
+    const y = randomRange(0, height);
+    const node = new Node(x, y, color);
+    nodes.push(node);
+  }
+
+  const paint = () => {
+    // context.fillStyle = '#fff';
+    // context.fillRect(0, 0, width, height);
+
+    nodes.forEach((node) => {
+      node.update();
+      node.draw(context);
+    });
+
+    window.requestAnimationFrame(paint);
+  };
+
+  window.requestAnimationFrame(paint);
+
+  // context.strokeStyle = 'black';
+  // context.rect(0, 0, 200, 200);
+  // context.beginPath();
+  // context.moveTo(100, 100);
+  // context.lineTo(100, 200);
+  // context.lineTo(200, 200);
+  // context.lineTo(200, 100);
+  // context.closePath();
+  // context.stroke();
+  // context.fill();
+
+  // context.rect(400, 400, 200, 200);
+  // context.stroke();
+
+  // context.save();
+  // context.translate(200, 200);
+  // context.beginPath();
+  // context.arc(0, 0, 50, 0, Math.PI * 2);
+  // context.closePath();
+  // context.stroke();
+  // context.restore();
+
+  // context.save();
+  // context.translate(400, 400);
+  // context.beginPath();
+  // context.arc(0, 0, 50, 0, Math.PI * 2);
+  // context.closePath();
+  // context.stroke();
+  // context.restore();
 
   // context.fillStyle = '#000';
   // context.beginPath();

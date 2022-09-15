@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GONUTS</title>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <canvas id="canvas" class="canvas" width="800" height="800"></canvas>
+  </div>
+</section>
+<script>
+  const randomRange = (min, max) => Math.random() * (max - min) + min;
+
+  class Coordinate {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  class Node {
+    constructor(position) {
+      this.position = position;
+    }
+
+    draw(context) {
+      context.save();
+      context.fillStyle = '#FFF';
+      context.strokeStyle = 'rgba(0, 0, 255, .4)';
+      context.beginPath();
+      context.translate(this.position.x, this.position.y);
+      context.arc(0, 0, 10, 0, Math.PI * 2);
+      context.fill();
+      context.stroke();
+      context.restore();
+    }
+  }
+
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext('2d');
+  const height = canvas.height;
+  const width = canvas.width;
+
+  const nodes = [];
+  for (let i = 0; i < 10; i++) {
+    const x = randomRange(0, width);
+    const y = randomRange(0, height);
+    const position = new Coordinate(x, y);
+    const node = new Node(position);
+    nodes.push(node);
+  }
+
+  const draw = () => {
+    context.fillStyle = '#fff';
+    context.fillRect(0, 0, width, height);
+
+    nodes.forEach((node) => node.draw(context));
+
+    window.requestAnimationFrame(draw);
+  }
+
+  window.requestAnimationFrame(draw);
+
+</script>
+<style>
+  *,
+  *::after,
+  *::before {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  .section {
+    width: 100vw;
+  }
+
+  .section .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .section .container .canvas {
+    border: 2px solid rgba(0, 0, 255, .4);
+    box-sizing: content-box;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    margin: 16px;
+  }
+</style>
+</body>
+</html>

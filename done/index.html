@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GONUTS</title>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <canvas id="canvas" class="canvas" width="800" height="800"></canvas>
+  </div>
+</section>
+<script>
+  const randomRange = (min, max) => Math.random() * (max - min) + min;
+
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext('2d');
+  const height = canvas.height;
+  const width = canvas.width;
+
+  context.beginPath();
+  context.moveTo(100, 100);
+  context.lineTo(200, 100);
+  context.lineTo(200, 200);
+  context.lineTo(100, 500);
+  context.closePath();
+  context.stroke();
+  context.fillStyle = 'rgba(0, 0, 255, .4)';
+  context.fill();
+
+</script>
+<style>
+  *,
+  *::after,
+  *::before {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  .section {
+    width: 100vw;
+  }
+
+  .section .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .section .container .canvas {
+    border: 2px solid rgba(0, 0, 255, .4);
+    box-sizing: content-box;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+    margin: 16px;
+  }
+</style>
+</body>
+</html>
